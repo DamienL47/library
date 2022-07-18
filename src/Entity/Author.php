@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,82 +30,133 @@ class Author
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
     private $birthDate;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $deathDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
      */
     private $books;
 
-    public function getId(): ?int
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
     {
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName): void
     {
         $this->firstName = $firstName;
-
-        return $this;
     }
 
-    public function getLastName(): ?string
+    /**
+     * @return mixed
+     */
+    public function getLastName()
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName): void
     {
         $this->lastName = $lastName;
-
-        return $this;
     }
 
-    public function getBirthDate(): ?string
+    /**
+     * @return mixed
+     */
+    public function getBirthDate()
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(string $birthDate): self
+    /**
+     * @param mixed $birthDate
+     */
+    public function setBirthDate($birthDate): void
     {
         $this->birthDate = $birthDate;
-
-        return $this;
     }
 
-    public function getDeathDate(): ?string
+    /**
+     * @return mixed
+     */
+    public function getDeathDate()
     {
         return $this->deathDate;
     }
 
-    public function setDeathDate(?string $deathDate): self
+    /**
+     * @param mixed $deathDate
+     */
+    public function setDeathDate($deathDate): void
     {
         $this->deathDate = $deathDate;
-
-        return $this;
     }
 
-    public function getBooks(): ?string
+    /**
+     * @return Collection<int, Book>
+     */
+    public function getBooks(): Collection
     {
         return $this->books;
     }
 
-    public function setBooks(string $books): self
+    public function addBook(Book $book): self
     {
-        $this->books = $books;
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setAuthor($this);
+        }
 
         return $this;
     }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getAuthor() === $this) {
+                $book->setAuthor(null);
+            }
+        }
+        return $this;
+    }
+
 }

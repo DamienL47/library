@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book{% endblock %}
+{% block title %}Livre{% endblock %}
 
 {% block body %}
-    <h1>Book</h1>
+    <h1>Livre</h1>
 
     <table class="table">
         <tbody>
@@ -12,20 +12,20 @@
                 <td>{{ book.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <td>{{ book.title }}</td>
             </tr>
             <tr>
-                <th>NbPages</th>
+                <th>Nombres de Pages</th>
                 <td>{{ book.nbPages }}</td>
             </tr>
             <tr>
-                <th>Author</th>
-                <td>{{ book.author }}</td>
+                <th>Auteur</th>
+                <td>{{ book.author.firstName }}</td>
             </tr>
             <tr>
-                <th>PublishedAt</th>
-                <td>{{ book.publishedAt ? book.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de Publication</th>
+                <td>{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>

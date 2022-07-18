@@ -39,6 +39,16 @@ class BookRepository extends ServiceEntityRepository
         }
     }
 
+    public function searchByWord($search)
+    {
+        $queryBuilder = $this->createQueryBuilder('b');
+        $query = $queryBuilder->select('b')
+            ->where('b.title LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */

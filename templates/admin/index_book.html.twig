@@ -1,41 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book index{% endblock %}
+{% block title %}Liste des livres{% endblock %}
 
 {% block body %}
-    <h1>Book index</h1>
+    <h1>Liste des livres</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>NbPages</th>
-                <th>Author</th>
-                <th>PublishedAt</th>
-                <th>actions</th>
+            <tr class="tableau">
+                <th class="tableau">Id</th>
+                <th class="tableau">titre</th>
+                <th class="tableau">Nombres de pages </th>
+                <th class="tableau">Auteur</th>
+                <th class="tableau">Date de publication</th>
             </tr>
         </thead>
         <tbody>
         {% for book in books %}
-            <tr>
-                <td>{{ book.id }}</td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.nbPages }}</td>
-                <td>{{ book.author }}</td>
-                <td>{{ book.publishedAt ? book.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('admin_app_book_show', {'id': book.id}) }}">show</a>
-                    <a href="{{ path('admin_app_book_edit', {'id': book.id}) }}">edit</a>
+            <tr class="tableau">
+                <td class="tableau">{{ book.id }}</td>
+                <td class="tableau">{{ book.title }}</td>
+                <td class="tableau">{{ book.nbPages }}</td>
+                {% if book.author %}
+                    <td class="tableau">{{ book.author.firstName }}</td>
+                {% endif %}
+                <td class="tableau">{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</td>
+                <td class="tableau">
+                    <a href="{{ path('admin_app_book_show', {'id': book.id}) }}">Voir</a>
+                    <a href="{{ path('admin_app_book_edit', {'id': book.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">non enregistrer</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_app_book_new') }}">Create new</a>
+    <a href="{{ path('admin_app_book_new') }}">Créer un nouveau livre</a>
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.nbPages }}</td>
+                {% if book.author %}
+                    <td>{{ book.author.firstName }}</td>
+                {% endif %}
+                <td>{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_app_book_show', {'id': book.id}) }}">show</a>
+                    <a href="{{ path('admin_app_book_edit', {'id': book.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <table class="table">
+        {% for author in authors %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.firstName }}</td>
+                <td>{{ author.lastName }}</td>
+                <td>{{ author.birthDate ? author.birthDate|date('Y-m-d'): '' }}</td>
+                <td>{{ author.deathDate ? author.deathDate|date('Y-m-d'): '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_author_show', {'id': author.id}) }}">show</a>
+                    <a href="{{ path('app_admin_author_edit', {'id': author.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+

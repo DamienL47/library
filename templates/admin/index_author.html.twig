@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des auteurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des auteurs </h1>
+
+    <table class="table">
+        <thead>
+            <tr class="tableau">
+                <th class="tableau">Id</th>
+                <th class="tableau">Prénom</th>
+                <th class="tableau">Nom</th>
+                <th class="tableau">Date de naissance</th>
+                <th class="tableau">Date de décès</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for author in authors %}
+            <tr class="tableau">
+                <td class="tableau">{{ author.id }}</td>
+                <td class="tableau">{{ author.firstName }}</td>
+                <td class="tableau">{{ author.lastName }}</td>
+                <td class="tableau">{{ author.birthDate ? author.birthDate|date('Y-m-d'): '' }}</td>
+                <td class="tableau">{{ author.deathDate ? author.deathDate|date('Y-m-d'): '' }}</td>
+                {% if author.books %}
+                    <td class="tableau">{{ author.books.contains('title') }}</td>
+                {% endif %}
+                <td class="tableau">
+                    <a href="{{ path('app_admin_author_show', {'id': author.id}) }}">Voir</a>
+                    <a href="{{ path('app_admin_author_edit', {'id': author.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_author_new') }}">Créer Un nouvel auteur</a>
+{% endblock %}

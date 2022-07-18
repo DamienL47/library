@@ -23,19 +23,19 @@ class Book
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $nbPages;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="date")
      */
     private $publishedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="books")
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -54,38 +54,42 @@ class Book
         return $this;
     }
 
-    public function getNbPages(): ?string
+    /**
+     * @return mixed
+     */
+    public function getNbPages()
     {
         return $this->nbPages;
     }
 
-    public function setNbPages(string $nbPages): self
+    /**
+     * @param mixed $nbPages
+     */
+    public function setNbPages($nbPages): void
     {
         $this->nbPages = $nbPages;
-
-        return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getPublishedAt(): ?\DateTimeImmutable
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTimeImmutable $publishedAt): self
+    public function setPublishedAt(\DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Author $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
