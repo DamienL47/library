@@ -28,6 +28,11 @@ class Book
     private $nbPages;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $publishedAt;
@@ -93,4 +98,21 @@ class Book
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
 }

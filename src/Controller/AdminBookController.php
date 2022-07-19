@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/")
@@ -28,13 +29,34 @@ class AdminBookController extends AbstractController
     /**
      * @Route("admin/new_book", name="admin_app_book_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, BookRepository $bookRepository): Response
+    public function new(Request $request, BookRepository $bookRepository, SluggerInterface $slugger): Response
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Je récupère le fichier image depuis mon formulaire
+            $image = $form->get('image')->getData();
+
+            //Je récupère le nom du fichier original
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            // J'utilise une instance de la classe Slugger et sa méthode slug pour
+            // supprimer les caractères spéciaux, espace ect du nom de fichier
+            $safeFilename = $slugger->slug($originalFilename);
+
+            // Je rajoute au nom de l'image, un identifiant unique (au cas ou l'image soit uploadée plusieurs fois)
+            $fileName = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            // je deplace l'image dans le dossier public et je la renomme avec le nouveau nom créé
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+
+            $book->setImage($fileName);
+
             $bookRepository->add($book, true);
 
             return $this->redirectToRoute('admin_app_book_index', [], Response::HTTP_SEE_OTHER);
@@ -59,13 +81,33 @@ class AdminBookController extends AbstractController
     /**
      * @Route("admin/book/{id}/edit", name="admin_app_book_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
+    public function edit(Request $request, Book $book, BookRepository $bookRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bookRepository->add($book, true);
+
+            $image = $form->get('image')->getData();
+
+            //Je récupère le nom du fichier original
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            // J'utilise une instance de la classe Slugger et sa méthode slug pour
+            // supprimer les caractères spéciaux, espace ect du nom de fichier
+            $safeFilename = $slugger->slug($originalFilename);
+
+            // Je rajoute au nom de l'image, un identifiant unique (au cas ou l'image soit uploadée plusieurs fois)
+            $fileName = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            // je deplace l'image dans le dossier public et je la renomme avec le nouveau nom créé
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fileName
+            );
+
+            $book->setImage($fileName);
 
             return $this->redirectToRoute('admin_app_book_index', [], Response::HTTP_SEE_OTHER);
         }

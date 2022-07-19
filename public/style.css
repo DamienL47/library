@@ -31,10 +31,21 @@ header {
 }
 
 h1 {
-
     margin-top: 2%;
+}
+.table{
+    width: 80%;
+    margin: auto;
 }
 
 .tableau {
     border: 1px solid black;
+    height: 5em;
 }
+.mini {
+    width: 50px;
+}
+.maxi {
+    width: 500px;
+}
+

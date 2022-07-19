@@ -11,6 +11,7 @@
                 <th class="tableau">Id</th>
                 <th class="tableau">titre</th>
                 <th class="tableau">Nombres de pages </th>
+                <th class="tableau">Image</th>
                 <th class="tableau">Auteur</th>
                 <th class="tableau">Date de publication</th>
             </tr>
@@ -21,6 +22,9 @@
                 <td class="tableau">{{ book.id }}</td>
                 <td class="tableau">{{ book.title }}</td>
                 <td class="tableau">{{ book.nbPages }}</td>
+                {% if book.image %}
+                    <td class="tableau"><img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}"></td>
+                {% endif %}
                 {% if book.author %}
                     <td class="tableau">{{ book.author.firstName }}</td>
                 {% endif %}

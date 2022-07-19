@@ -8,24 +8,28 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
+                <th class="tableau">Id</th>
+                <td class="tableau">{{ book.id }}</td>
             </tr>
             <tr>
-                <th>Titre</th>
-                <td>{{ book.title }}</td>
+                <th class="tableau">Titre</th>
+                <td class="tableau">{{ book.title }}</td>
+            </tr>
+                <tr>
+                    <th class="tableau">Image</th>
+                    <td class="image"><img class="maxi" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}"></td>
+                </tr>
+            <tr>
+                <th class="tableau">Nombres de Pages</th>
+                <td class="tableau">{{ book.nbPages }}</td>
             </tr>
             <tr>
-                <th>Nombres de Pages</th>
-                <td>{{ book.nbPages }}</td>
+                <th class="tableau">Auteur</th>
+                <td class="tableau">{{ book.author.firstName }}</td>
             </tr>
             <tr>
-                <th>Auteur</th>
-                <td>{{ book.author.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Date de Publication</th>
-                <td>{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</td>
+                <th class="tableau">Date de Publication</th>
+                <td class="tableau">{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>
