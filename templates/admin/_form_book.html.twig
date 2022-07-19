@@ -1,4 +1,30 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+{#    {{ form_widget(form) }}#}
+
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title) }}
+    {{ form_errors(form.title) }}
+
+    {{ form_label(form.nbPages) }}
+    {{ form_widget(form.nbPages) }}
+    {{ form_errors(form.nbPages) }}
+
+    {{ form_label(form.image) }}
+    <div>
+        {% if book.image %}
+            <td class="tableau"><img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}"></td>
+        {% endif %}
+    </div>
+    {{ form_widget(form.image) }}
+    {{ form_errors(form.image) }}
+
+    {{ form_label(form.author) }}
+    {{ form_widget(form.author) }}
+    {{ form_errors(form.author) }}
+
+    {{ form_label(form.publishedAt) }}
+    {{ form_widget(form.publishedAt) }}
+    {{ form_errors(form.publishedAt) }}
+
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

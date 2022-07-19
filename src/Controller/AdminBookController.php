@@ -87,7 +87,7 @@ class AdminBookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookRepository->add($book, true);
+
 
             $image = $form->get('image')->getData();
 
@@ -108,6 +108,8 @@ class AdminBookController extends AbstractController
             );
 
             $book->setImage($fileName);
+
+            $bookRepository->add($book, true);
 
             return $this->redirectToRoute('admin_app_book_index', [], Response::HTTP_SEE_OTHER);
         }

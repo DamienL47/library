@@ -22,9 +22,7 @@
                 <td class="tableau">{{ book.id }}</td>
                 <td class="tableau">{{ book.title }}</td>
                 <td class="tableau">{{ book.nbPages }}</td>
-                {% if book.image %}
-                    <td class="tableau"><img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}"></td>
-                {% endif %}
+                <td class="tableau"><img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}"></td>
                 {% if book.author %}
                     <td class="tableau">{{ book.author.firstName }}</td>
                 {% endif %}
