@@ -1,0 +1,3 @@
+.btn-accueil {
+  @include btn-head($btnColor1, $btnColor2, $colortextbtn);
+}

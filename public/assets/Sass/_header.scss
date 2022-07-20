@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  width: 50vw;
+}
+
+.containerNav {
+  display: flex;
+  width: 100vw;
+  justify-content: space-around;
+  align-items: center;
+}

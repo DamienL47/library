@@ -1,0 +1,12 @@
+@mixin btn-head($btnColor1, $btnColor2, $colorTextBtn) {
+    border: 1px solid gray;
+    padding: 1em;
+    border-radius: 20px;
+    background: linear-gradient(15deg, $btnColor1, $btnColor2);
+    color: $colorTextBtn;
+    text-decoration: none;
+
+      :hover{
+        background-color: linear-gradient(90deg, $btnColor2, $btnColor1);
+      }
+}
