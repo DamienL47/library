@@ -1,3 +1,15 @@
+.btn-accueil {
+  border: 1px solid gray;
+  padding: 1em;
+  border-radius: 20px;
+  background: linear-gradient(15deg, darkblue, #ff1496);
+  color: white;
+  text-decoration: none;
+}
+.btn-accueil :hover {
+  background-color: linear-gradient(90deg, #ff1496, darkblue);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,19 +26,6 @@ header {
   width: 100vw;
   justify-content: space-around;
   align-items: center;
-}
-
-.btn-accueil {
-  border: 1px solid gray;
-  padding: 1em;
-  border-radius: 20px;
-  background: linear-gradient(15deg, darkblue, deeppink);
-  color: white;
-  text-decoration: none;
-}
-
-.btn-accueil:hover {
-  background: linear-gradient(90deg, deeppink, blue);
 }
 
 h1 {
@@ -49,6 +48,11 @@ h1 {
 
 .maxi {
   width: 500px;
+}
+
+.boxContain {
+  display: flex;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=style.css.map */

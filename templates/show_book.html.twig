@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre{% endblock %}
+
+{% block body %}
+<h1>{{ book.title }}</h1>
+
+<div class="boxBook">
+    <h4>{{ book.title }}</h4>
+    <p>{{ book.nbPages }}</p>
+    <img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}">
+    {% if book.author %}
+        <p>{{ book.author.firstName }}</p>
+    {% endif %}
+    <p>{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</p>
+</div>
+
+<a href="{{ path('admin_app_book_index') }}">retour à la liste </a>
+
+{% endblock %}

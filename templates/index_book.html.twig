@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+<h1>Liste des livres</h1>
+
+<table class="table">
+
+{% for book in books %}
+    <div class="boxContain">
+        <h1>{{ book.title }}</h1>
+        <p>{{ book.nbPages }}</p>
+        <img class="mini" src="{{ asset('uploads/images/') ~ book.image }}" alt="{{ book.title }}">
+        {% if book.author %}
+            <p>{{ book.author.firstName }}</p>
+        {% endif %}
+        <p>{{ book.publishedAt ? book.publishedAt|date('Y-m-d') : '' }}</p>
+            <a href="{{ path('show_book', {'id': book.id}) }}">Voir</a>
+    </div>
+{% endfor %}
+
+{% endblock %}

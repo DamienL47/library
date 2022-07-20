@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auteur{% endblock %}
+
+{% block body %}
+<h1>Auteur</h1>
+
+<div class="boxContain">
+    <th>Prénom</th>
+    <td>{{ author.firstName }}</td>
+
+    <th>Nom</th>
+    <td>{{ author.lastName }}</td>
+
+    <th>Date de naissance</th>
+    <td>{{ author.birthDate? author.birthDate|date('Y-m-d'): ''}}</td>
+
+    <th>Date de décès</th>
+    <td>{{ author.deathDate? author.deathDate|date('Y-m-d'): ''}}</td>
+
+    <th>livres</th>
+    <td>{{ author.books.contains('title')}}</td>
+</div>
+<a href="{{ path('app_admin_author_index') }}">Retour à la liste</a>
+
+{% endblock %}

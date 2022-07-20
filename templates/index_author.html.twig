@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des auteurs{% endblock %}
+
+{% block body %}
+<h1>Liste des auteurs </h1>
+
+{% for author in authors %}
+    <div class="boxContain">
+        <p>{{ author.firstName }}</p>
+        <p>{{ author.lastName }}</p>
+        <p>{{ author.birthDate ? author.birthDate|date('Y-m-d'): '' }}</p>
+        <p>{{ author.deathDate ? author.deathDate|date('Y-m-d'): '' }}</p>
+        {% for author in authors %}
+            <p class="tableau">{{ author.books.contains('title') }}</p>
+        {% endfor %}
+
+        <a href="{{ path('show_author', {'id': author.id}) }}">Voir</a>
+    </div>
+{% endfor %}
+{% endblock %}
