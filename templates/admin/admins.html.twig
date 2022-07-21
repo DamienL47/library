@@ -4,11 +4,17 @@
     <section>
         {% for admin in admins %}
             <article class="boxContain">
-                <h2> {{ admin.email }} </h2>
-                <div class="boxContain">
-                    {% for roles in admin.roles %}
-                        <strong> {{ roles }} </strong>
-                    {% endfor %}
+                <div class="box">
+                    <h2> {{ admin.email }} </h2>
+
+                    <div>
+                        {% for roles in admin.roles %}
+                            <strong> {{ roles }} </strong>
+                        {% endfor %}
+                        <br>
+                        <a href="{{ path('admin_update_admin', {'id': admin.id}) }}">Modifier</a>
+                        <a href="{{ path('admin_delete_admin', {'id': admin.id}) }}">Supprimer</a>
+                    </div>
                 </div>
             </article>
         {% endfor %}
@@ -16,7 +22,9 @@
     <div class="boxContain">
         <a class="btn-accueil" href="{{path('admin_create_admins')}}">Ajouter un admin</a>
     </div>
-
+    {% for message in app.flashes('success') %}
+        <h3> {{ message }}</h3>
+    {% endfor %}
 {% endblock %}
 
 

@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -54,13 +55,63 @@ class AdminAdminController extends AbstractController
             // j'envoie en base de données
             $entityManager->flush();
             // Je transmet un message flash de succes
-            $this->addFlash('succes', ' à bien été créé.');
+            $this->addFlash('success', ' à bien été créé.');
             // je redirige vers la liste des admins
             return $this->redirectToRoute('admin_list_admins');
         }
         // Page d'admin sur laquelle est généré mon formulaire d'ajout
         return $this->render('admin/create_admin.html.twig', [
+            'user' => $user,
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/update_admin/{id}", name="admin_update_admin")
+     */
+    public function updateAdmin(EntityManagerInterface $entityManager, Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->add($user, true);
+            $passwordUser = $form->get('password')->getData();
+            //Je lui applique le Hash pour le crypter
+            $hashedPassword = $userPasswordHasher->hashPassword($user, $passwordUser);
+            //j'affecte le password hashé à l'user
+            $user->setPassword($hashedPassword);
+            $entityManager->persist($user);
+            // j'envoie en base de données
+            $entityManager->flush();
+
+
+            $this->addFlash('success', ' à bien été modifié.');
+
+            return $this->redirectToRoute('admin_list_admins');
+        }
+
+        return $this->renderForm('admin/update_admin.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/delete/admin/{id}", name="admin_delete_admin")
+     */
+    public function deleteAdmin($id, UserRepository $userRepository, EntityManagerInterface $entityManager)
+    {
+        $user = $userRepository->find($id);
+        if (!is_null($user)){
+            $entityManager->remove($user);
+            $entityManager->flush();
+            $this->addFlash('success', ' à bien été supprimé.');
+            return $this->redirectToRoute('admin_list_admins');
+        } else {
+            return new Response('Utilisateur inexistant');
+        }
+
+    }
+
 }

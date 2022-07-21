@@ -6,7 +6,7 @@
   color: white;
   text-decoration: none;
 }
-.btn-accueil:hover {
+.btn-accueil :hover {
   background: linear-gradient(90deg, #ff1496, darkblue);
 }
 
@@ -52,7 +52,29 @@ h1 {
 
 .boxContain {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.box {
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 5%;
+  text-align: center;
+}
+
+.js-night {
+  background-color: black;
+}
+
+.js-night button {
+  background-color: black;
+  color: white;
+}
+
+.js-night h1 {
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

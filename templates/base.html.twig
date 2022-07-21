@@ -19,11 +19,14 @@
                     <input class="form-control" type="text" name="search" id="search" placeholder="Chercher sur le site " >
                     <input class="btn btn-light" type="submit">
                 </form>
+                <button class="js-night-mode">Night Mode</button>
             </nav>
         {% endblock %}
         {% block body %}{% endblock %}
     </body>
     <footer>
-        {% block footer%}{% endblock %}
+        {% block footer%}
+        <script src="{{ asset('assets/js/script.js') }}"></script>
+        {% endblock %}
     </footer>
 </html>
