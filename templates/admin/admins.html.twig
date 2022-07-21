@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <section>
+        {% for admin in admins %}
+            <article class="boxContain">
+                <h2> {{ admin.email }} </h2>
+                <div class="boxContain">
+                    {% for roles in admin.roles %}
+                        <strong> {{ roles }} </strong>
+                    {% endfor %}
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+    <div class="boxContain">
+        <a class="btn-accueil" href="{{path('admin_create_admins')}}">Ajouter un admin</a>
+    </div>
+
+{% endblock %}
+
+
+

@@ -6,8 +6,8 @@
   color: white;
   text-decoration: none;
 }
-.btn-accueil :hover {
-  background-color: linear-gradient(90deg, #ff1496, darkblue);
+.btn-accueil:hover {
+  background: linear-gradient(90deg, #ff1496, darkblue);
 }
 
 * {

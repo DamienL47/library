@@ -7,6 +7,6 @@
     text-decoration: none;
 
       :hover{
-        background-color: linear-gradient(90deg, $btnColor2, $btnColor1);
+        background: linear-gradient(90deg, $btnColor2, $btnColor1);
       }
 }
