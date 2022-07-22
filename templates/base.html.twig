@@ -9,6 +9,22 @@
     </head>
     <body>
         {% block header %}
+            <nav class="burgerMenu">
+                <a href="{{path('home')}}">Accueil</a>
+                <a href="{{path('index_book')}}">Nos Livres</a>
+                <a href="{{path('index_author')}}">Les Auteurs</a>
+                <a href="{{path('app_login')}}">Connexion</a>
+                <form action="{{ path('search_bar') }}" method="get" class="formulaire">
+                    <label for="search" class="form-label"></label>
+                    <input class="form-control" type="text" name="search" id="search" placeholder="Chercher sur le site " >
+                    <input class="btn btn-light" type="submit">
+                </form>
+            </nav>
+            <button type="button" aria-label="toggle curtain navigation" class="nav-toggler">
+                <span class="line l1"></span>
+                <span class="line l2"></span>
+                <span class="line l3"></span>
+            </button>
             <nav class="containerNav">
                 <a class="btn-accueil" href="{{path('home')}}">Accueil</a>
                 <a class="btn-accueil" href="{{path('index_book')}}">Nos Livres</a>
@@ -19,13 +35,14 @@
                     <input class="form-control" type="text" name="search" id="search" placeholder="Chercher sur le site " >
                     <input class="btn btn-light" type="submit">
                 </form>
-                <button class="js-night-mode">Night Mode</button>
             </nav>
+
         {% endblock %}
         {% block body %}{% endblock %}
     </body>
     <footer>
         {% block footer%}
+        <button class="js-night-mode">Night Mode</button>
         <script src="{{ asset('assets/js/script.js') }}"></script>
         {% endblock %}
     </footer>

@@ -13,7 +13,17 @@ button.addEventListener('click',() => {
         localStorage.removeItem('js-night-mode');
     } else {
         body.setAttribute('class','js-night');
-        button.innerText = "light Mode";
+        button.innerText = "Light Mode";
         localStorage.setItem('js-night-mode', "true");
     }
 });
+
+const burgerButton = document.querySelector('.nav-toggler');
+const navigation = document.querySelector('.burgerMenu')
+burgerButton.addEventListener("click",
+    toggleNav)
+
+function toggleNav(){
+    burgerButton.classList.toggle("active")
+    navigation.classList.toggle("active")
+}
